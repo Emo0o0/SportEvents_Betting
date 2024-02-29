@@ -1,4 +1,4 @@
-package com.example.sportevents_betting.api.inputoutput.bookmakeroffer.delete;
+package com.example.sportevents_betting.api.inputoutput.bookmakeroffer.getbyid;
 
 import com.example.sportevents_betting.api.base.OperationInput;
 import jakarta.validation.constraints.NotBlank;
@@ -9,7 +9,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DeleteBookmakerOfferInput implements OperationInput {
+public class GetBookmakerOfferByIdInput implements OperationInput {
 
     @NotBlank(message = "bookmaker ID cannot be blank")
     private String id;

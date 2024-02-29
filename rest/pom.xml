@@ -20,7 +20,7 @@
     <dependencies>
 
         <dependency>
-            <groupId>com.example.sportevents</groupId>
+            <groupId>com.example.sportevents_betting</groupId>
             <artifactId>api</artifactId>
             <version>${revision}</version>
         </dependency>

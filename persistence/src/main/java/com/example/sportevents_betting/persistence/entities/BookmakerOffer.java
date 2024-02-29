@@ -16,7 +16,7 @@ public class BookmakerOffer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID uuid;
+    private UUID id;
     private String eventId;
     private String odds;
     @ManyToOne

@@ -24,9 +24,8 @@ public class BettingUser {
     @Column(unique = true)
     private String email;
     private String password;
-    @OneToMany
+    @OneToMany(mappedBy = "bettingUser")
     private Set<BettingUserBet> bets;
-
 
 
 }

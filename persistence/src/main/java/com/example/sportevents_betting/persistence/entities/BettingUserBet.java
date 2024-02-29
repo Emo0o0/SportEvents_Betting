@@ -22,5 +22,8 @@ public class BettingUserBet {
     private String bookmakerOfferId;
     private BigDecimal betAmount;
     private int pickedTeam;
+    @ManyToOne
+    @JoinColumn(columnDefinition = "bettingUser_id", nullable = false)
+    private BettingUser bettingUser;
 
 }

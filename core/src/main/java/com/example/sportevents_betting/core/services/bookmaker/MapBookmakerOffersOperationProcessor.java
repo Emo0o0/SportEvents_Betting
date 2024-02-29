@@ -7,7 +7,6 @@ import com.example.sportevents_betting.api.inputoutput.bookmaker.mapoffers.MapBo
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,7 +18,7 @@ public class MapBookmakerOffersOperationProcessor implements MapBookmakerOffersO
 
         Set<MapBookmakerOffersOutput> listOutput = input.getBookmakerOffers().stream()
                 .map(bo -> MapBookmakerOffersOutput.builder()
-                        .id(bo.getUuid().toString())
+                        .id(bo.getId().toString())
                         .eventId(bo.getEventId())
                         .odds(bo.getOdds())
                         .build())

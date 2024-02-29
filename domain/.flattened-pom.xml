@@ -11,4 +11,12 @@
       <url>https://www.apache.org/licenses/LICENSE-2.0</url>
     </license>
   </licenses>
+  <dependencies>
+    <dependency>
+      <groupId>com.example.sportevents</groupId>
+      <artifactId>restexport</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
 </project>
