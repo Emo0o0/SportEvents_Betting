@@ -19,6 +19,9 @@ public class BookmakerOffer {
     private UUID uuid;
     private String eventId;
     private String odds;
+    @ManyToOne
+    @JoinColumn(columnDefinition = "bookmaker_id", nullable = false)
+    private Bookmaker bookmaker;
 
 
 }

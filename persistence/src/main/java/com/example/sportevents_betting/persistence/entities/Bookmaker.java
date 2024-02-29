@@ -26,7 +26,7 @@ public class Bookmaker {
     @Column(unique = true)
     private String phone;
     private String password;
-    @OneToMany
+    @OneToMany(mappedBy = "bookmaker")
     private Set<BookmakerOffer> bookmakerOffers;
 
 }
