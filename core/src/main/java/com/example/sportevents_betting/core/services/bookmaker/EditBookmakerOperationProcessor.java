@@ -3,7 +3,7 @@ package com.example.sportevents_betting.core.services.bookmaker;
 import com.example.sportevents_betting.api.inputoutput.bookmaker.edit.EditBookmakerInput;
 import com.example.sportevents_betting.api.inputoutput.bookmaker.edit.EditBookmakerOperation;
 import com.example.sportevents_betting.api.inputoutput.bookmaker.edit.EditBookmakerOutput;
-import com.example.sportevents_betting.core.exceptions.BookmakerNotFoundException;
+import com.example.sportevents_betting.core.exceptions.bookmaker.BookmakerNotFoundException;
 import com.example.sportevents_betting.persistence.entities.Bookmaker;
 import com.example.sportevents_betting.persistence.repositories.BookmakerRepository;
 import lombok.RequiredArgsConstructor;

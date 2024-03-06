@@ -5,7 +5,7 @@ import com.example.sportevents_betting.api.inputoutput.bookmaker.getbyid.GetBook
 import com.example.sportevents_betting.api.inputoutput.bookmaker.getbyid.GetBookmakerByIdOutput;
 import com.example.sportevents_betting.api.inputoutput.bookmaker.mapoffers.MapBookmakerOffersInput;
 import com.example.sportevents_betting.api.inputoutput.bookmaker.mapoffers.MapBookmakerOffersOperation;
-import com.example.sportevents_betting.core.exceptions.BookmakerNotFoundException;
+import com.example.sportevents_betting.core.exceptions.bookmaker.BookmakerNotFoundException;
 import com.example.sportevents_betting.persistence.entities.Bookmaker;
 import com.example.sportevents_betting.persistence.repositories.BookmakerRepository;
 import lombok.RequiredArgsConstructor;

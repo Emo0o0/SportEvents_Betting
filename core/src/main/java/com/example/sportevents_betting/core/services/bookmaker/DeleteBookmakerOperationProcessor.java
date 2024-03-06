@@ -3,15 +3,14 @@ package com.example.sportevents_betting.core.services.bookmaker;
 import com.example.sportevents_betting.api.inputoutput.bookmaker.delete.DeleteBookmakerInput;
 import com.example.sportevents_betting.api.inputoutput.bookmaker.delete.DeleteBookmakerOperation;
 import com.example.sportevents_betting.api.inputoutput.bookmaker.delete.DeleteBookmakerOutput;
-import com.example.sportevents_betting.core.exceptions.BookmakerIncorrectPasswordException;
-import com.example.sportevents_betting.core.exceptions.BookmakerNotFoundException;
+import com.example.sportevents_betting.core.exceptions.bookmaker.BookmakerIncorrectPasswordException;
+import com.example.sportevents_betting.core.exceptions.bookmaker.BookmakerNotFoundException;
 import com.example.sportevents_betting.persistence.entities.Bookmaker;
 import com.example.sportevents_betting.persistence.repositories.BookmakerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
