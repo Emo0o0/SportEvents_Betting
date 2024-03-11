@@ -3,7 +3,8 @@ package com.example.sportevents_betting.api.inputoutput.bookmakeroffer.getall;
 import com.example.sportevents_betting.api.base.OperationResult;
 import lombok.*;
 
-import java.util.Set;
+import java.util.List;
+
 
 @Getter
 @Setter(AccessLevel.PRIVATE)
@@ -12,6 +13,6 @@ import java.util.Set;
 @AllArgsConstructor
 public class GetAllBookmakerOffersListOutput implements OperationResult {
 
-    private Set<GetAllBookmakerOffersOutput> bookmakerOffers;
+    private List<GetAllBookmakerOffersOutput> bookmakerOffers;
 
 }

@@ -11,9 +11,9 @@ import lombok.*;
 public class EditBookmakerOfferInput implements OperationInput {
 
     private String id;
-    private String eventId;
+    //private String eventId;
     private String odds;
-    private String bookmakerId;
+    //private String bookmakerId;
 
 
 }

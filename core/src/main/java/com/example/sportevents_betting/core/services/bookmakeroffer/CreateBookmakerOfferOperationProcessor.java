@@ -1,5 +1,6 @@
 package com.example.sportevents_betting.core.services.bookmakeroffer;
 
+import com.example.sportevents.restexport.SportEventsRestClient;
 import com.example.sportevents_betting.api.inputoutput.bookmakeroffer.create.CreateBookmakerOfferInput;
 import com.example.sportevents_betting.api.inputoutput.bookmakeroffer.create.CreateBookmakerOfferOperation;
 import com.example.sportevents_betting.api.inputoutput.bookmakeroffer.create.CreateBookmakerOfferOutput;
@@ -19,12 +20,15 @@ public class CreateBookmakerOfferOperationProcessor implements CreateBookmakerOf
 
     private final BookmakerOfferRepository bookmakerOfferRepository;
     private final BookmakerRepository bookmakerRepository;
+    private final SportEventsRestClient sportEventsRestClient;
 
     @Override
     public CreateBookmakerOfferOutput process(CreateBookmakerOfferInput input) {
 
         Bookmaker bookmaker = bookmakerRepository.findById(UUID.fromString(input.getBookmakerId()))
                 .orElseThrow(() -> new BookmakerNotFoundException("Bookmaker not found"));
+
+        sportEventsRestClient.getSportEventById(input.getEventId());
 
 
         BookmakerOffer bookmakerOffer = BookmakerOffer.builder()

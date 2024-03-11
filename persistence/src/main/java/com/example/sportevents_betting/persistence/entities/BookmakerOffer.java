@@ -17,7 +17,9 @@ public class BookmakerOffer {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @Column(nullable = false)
     private String eventId;
+    @Column(nullable = false)
     private String odds;
     @ManyToOne
     @JoinColumn(columnDefinition = "bookmaker_id", nullable = false)

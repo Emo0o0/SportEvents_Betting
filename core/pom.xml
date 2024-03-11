@@ -25,6 +25,12 @@
             <version>${revision}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.example.sportevents_betting</groupId>
+            <artifactId>domain</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
     </dependencies>
 
     <properties>

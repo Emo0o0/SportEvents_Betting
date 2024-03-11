@@ -1,4 +1,4 @@
-package com.example.sportevents_betting.api.inputoutput.bookmakeroffer.getall;
+package com.example.sportevents_betting.api.inputoutput.bettinguserbet.getall;
 
 import com.example.sportevents_betting.api.base.OperationInput;
 import lombok.*;
@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetAllBookmakerOffersInput implements OperationInput {
+public class GetAllBettingUserBetsInput implements OperationInput {
 
     private String pageNumber;
     private String itemsPerPage;
