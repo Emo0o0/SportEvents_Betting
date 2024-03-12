@@ -12,6 +12,9 @@ import com.example.sportevents_betting.api.inputoutput.bookmakeroffer.edit.EditB
 import com.example.sportevents_betting.api.inputoutput.bookmakeroffer.getall.GetAllBookmakerOffersInput;
 import com.example.sportevents_betting.api.inputoutput.bookmakeroffer.getall.GetAllBookmakerOffersListOutput;
 import com.example.sportevents_betting.api.inputoutput.bookmakeroffer.getall.GetAllBookmakerOffersOperation;
+import com.example.sportevents_betting.api.inputoutput.bookmakeroffer.getallbybookmaker.GetAllOffersByBookmakerInput;
+import com.example.sportevents_betting.api.inputoutput.bookmakeroffer.getallbybookmaker.GetAllOffersByBookmakerListOutput;
+import com.example.sportevents_betting.api.inputoutput.bookmakeroffer.getallbybookmaker.GetAllOffersByBookmakerOperation;
 import com.example.sportevents_betting.api.inputoutput.bookmakeroffer.getbyid.GetBookmakerOfferByIdInput;
 import com.example.sportevents_betting.api.inputoutput.bookmakeroffer.getbyid.GetBookmakerOfferByIdOperation;
 import com.example.sportevents_betting.api.inputoutput.bookmakeroffer.getbyid.GetBookmakerOfferByIdOutput;
@@ -29,6 +32,7 @@ public class BookmakerOfferController {
     private final EditBookmakerOfferOperation editBookmakerOfferInput;
     private final GetAllBookmakerOffersOperation getAllBookmakerOffersOperation;
     private final GetBookmakerOfferByIdOperation getBookmakerOfferByIdOperation;
+    private final GetAllOffersByBookmakerOperation getAllOffersByBookmakerOperation;
 
 
     @PostMapping("/createOffer")
@@ -63,6 +67,14 @@ public class BookmakerOfferController {
                 .id(id)
                 .build();
         return ResponseEntity.status(200).body(getBookmakerOfferByIdOperation.process(input));
+    }
+
+    @GetMapping("/getByBookmaker/{id}")
+    public ResponseEntity<GetAllOffersByBookmakerListOutput> getOffersByBookmaker(@PathVariable String id) {
+        GetAllOffersByBookmakerInput input = GetAllOffersByBookmakerInput.builder()
+                .bookmakerId(id)
+                .build();
+        return ResponseEntity.status(200).body(getAllOffersByBookmakerOperation.process(input));
     }
 
 }

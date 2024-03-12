@@ -20,7 +20,7 @@ public class GetAllBookmakerOffersOperationProcessor implements GetAllBookmakerO
     @Override
     public GetAllBookmakerOffersListOutput process(GetAllBookmakerOffersInput input) {
 
-        PageRequest pageRequest = PageRequest.of(Integer.parseInt(input.getPageNumber()), Integer.parseInt(input.getItemsPerPage()));
+        PageRequest pageRequest = PageRequest.of(Integer.parseInt(input.getPageNumber()) - 1, Integer.parseInt(input.getItemsPerPage()));
 
         List<GetAllBookmakerOffersOutput> offers = bookmakerOfferRepository.findAll(pageRequest).stream()
                 .map(offer -> GetAllBookmakerOffersOutput.builder()

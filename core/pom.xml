@@ -31,6 +31,12 @@
             <version>${revision}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.example.sportevents</groupId>
+            <artifactId>restexport</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
 
     <properties>
