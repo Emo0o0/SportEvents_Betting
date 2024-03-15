@@ -31,6 +31,8 @@
     <properties>
         <java.version>17</java.version>
         <revision>0.0.1-SNAPSHOT</revision>
+        <SportEvents_revision>0.0.1-SNAPSHOT</SportEvents_revision>
+        <SportEventsLogger_revision>0.0.1-SNAPSHOT</SportEventsLogger_revision>
     </properties>
 
     <dependencies>

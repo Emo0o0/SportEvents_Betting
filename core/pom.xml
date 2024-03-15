@@ -34,7 +34,7 @@
         <dependency>
             <groupId>com.example.sportevents</groupId>
             <artifactId>restexport</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${SportEvents_revision}</version>
         </dependency>
 
     </dependencies>
