@@ -21,7 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/bettinguser")
+@RequestMapping(path = "/bettinguser")
 @RequiredArgsConstructor
 public class BettingUserController {
 
@@ -31,22 +31,22 @@ public class BettingUserController {
     private final GetBettingUserByIdOperation getBettingUserByIdOperation;
     private final GetAllBettingUsersOperation getAllBettingUsersOperation;
 
-    @PostMapping
+    @PostMapping(path = "/create")
     public ResponseEntity<CreateBettingUserOutput> createBettingUser(@Valid @RequestBody CreateBettingUserInput input) {
         return ResponseEntity.status(201).body(createBettingUserOperation.process(input));
     }
 
-    @DeleteMapping
+    @DeleteMapping("/delete")
     public ResponseEntity<DeleteBettingUserOutput> deleteBettingUser(@RequestBody DeleteBettingUserInput input) {
         return ResponseEntity.status(200).body(deleteBettingUserOperation.process(input));
     }
 
-    @PatchMapping
+    @PatchMapping("/edit")
     public ResponseEntity<EditBettingUserOutput> editBettingUser(@RequestBody EditBettingUserInput input) {
         return ResponseEntity.status(200).body(editBettingUserOperation.process(input));
     }
 
-    @GetMapping("getById/{id}")
+    @GetMapping("/getById/{id}")
     public ResponseEntity<GetBettingUserByIdOutput> getBettingUserById(@PathVariable String id) {
 
         GetBettingUserByIdInput input = GetBettingUserByIdInput.builder()
@@ -55,7 +55,7 @@ public class BettingUserController {
         return ResponseEntity.status(200).body(getBettingUserByIdOperation.process(input));
     }
 
-    @GetMapping("getAll")
+    @GetMapping("/getAll")
     public ResponseEntity<GetAllBettingUsersListOutput> getAllBettingUsers(
             @RequestParam String pageNumber,
             @RequestParam String itemsPerPage) {
