@@ -3,6 +3,8 @@ package com.example.sportevents_betting.core.services.bookmaker;
 import com.example.sportevents_betting.api.inputoutput.bookmaker.delete.DeleteBookmakerInput;
 import com.example.sportevents_betting.api.inputoutput.bookmaker.delete.DeleteBookmakerOperation;
 import com.example.sportevents_betting.api.inputoutput.bookmaker.delete.DeleteBookmakerOutput;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogInput;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogOperation;
 import com.example.sportevents_betting.core.exceptions.bookmaker.BookmakerIncorrectPasswordException;
 import com.example.sportevents_betting.core.exceptions.bookmaker.BookmakerNotFoundException;
 import com.example.sportevents_betting.persistence.entities.Bookmaker;
@@ -19,6 +21,7 @@ public class DeleteBookmakerOperationProcessor implements DeleteBookmakerOperati
 
     private final BookmakerRepository bookmakerRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AddLogOperation addLogOperation;
 
     @Override
     public DeleteBookmakerOutput process(DeleteBookmakerInput input) {
@@ -29,6 +32,15 @@ public class DeleteBookmakerOperationProcessor implements DeleteBookmakerOperati
                 .orElseThrow(() -> new BookmakerNotFoundException("Bookmaker not found"));
 
         bookmakerRepository.delete(bookmaker);
+
+        addLogOperation.process(AddLogInput.builder()
+                .logMessage("Deleted bookmaker with:" +
+                        "\nid: " + bookmaker.getId().toString() +
+                        "\nfirst name: " + bookmaker.getFirstName() +
+                        "\nlast name: " + bookmaker.getLastName() +
+                        "\nemail: " + bookmaker.getEmail() +
+                        "\nphone: " + bookmaker.getPhone())
+                .build());
 
         return DeleteBookmakerOutput.builder()
                 .success(true)

@@ -4,6 +4,8 @@ import com.example.sportevents_betting.api.inputoutput.bookmakeroffer.getall.Get
 import com.example.sportevents_betting.api.inputoutput.bookmakeroffer.getall.GetAllBookmakerOffersListOutput;
 import com.example.sportevents_betting.api.inputoutput.bookmakeroffer.getall.GetAllBookmakerOffersOperation;
 import com.example.sportevents_betting.api.inputoutput.bookmakeroffer.getall.GetAllBookmakerOffersOutput;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogInput;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogOperation;
 import com.example.sportevents_betting.persistence.repositories.BookmakerOfferRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -16,6 +18,7 @@ import java.util.List;
 public class GetAllBookmakerOffersOperationProcessor implements GetAllBookmakerOffersOperation {
 
     private final BookmakerOfferRepository bookmakerOfferRepository;
+    private final AddLogOperation addLogOperation;
 
     @Override
     public GetAllBookmakerOffersListOutput process(GetAllBookmakerOffersInput input) {
@@ -30,6 +33,10 @@ public class GetAllBookmakerOffersOperationProcessor implements GetAllBookmakerO
                         .bookmakerId(offer.getBookmaker().getId().toString())
                         .build())
                 .toList();
+
+        addLogOperation.process(AddLogInput.builder()
+                .logMessage("Request to get all bookmaker offers was made")
+                .build());
 
         return GetAllBookmakerOffersListOutput.builder()
                 .bookmakerOffers(offers)

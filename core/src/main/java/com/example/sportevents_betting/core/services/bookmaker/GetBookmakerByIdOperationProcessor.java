@@ -5,6 +5,8 @@ import com.example.sportevents_betting.api.inputoutput.bookmaker.getbyid.GetBook
 import com.example.sportevents_betting.api.inputoutput.bookmaker.getbyid.GetBookmakerByIdOutput;
 import com.example.sportevents_betting.api.inputoutput.bookmaker.mapoffers.MapBookmakerOffersInput;
 import com.example.sportevents_betting.api.inputoutput.bookmaker.mapoffers.MapBookmakerOffersOperation;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogInput;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogOperation;
 import com.example.sportevents_betting.core.exceptions.bookmaker.BookmakerNotFoundException;
 import com.example.sportevents_betting.persistence.entities.Bookmaker;
 import com.example.sportevents_betting.persistence.repositories.BookmakerRepository;
@@ -19,12 +21,17 @@ public class GetBookmakerByIdOperationProcessor implements GetBookmakerByIdOpera
 
     private final BookmakerRepository bookmakerRepository;
     private final MapBookmakerOffersOperation mapBookmakerOffersOperation;
+    private final AddLogOperation addLogOperation;
 
     @Override
     public GetBookmakerByIdOutput process(GetBookmakerByIdInput input) {
 
         Bookmaker bookmaker = bookmakerRepository.findById(UUID.fromString(input.getId()))
                 .orElseThrow(() -> new BookmakerNotFoundException("Bookmaker not found"));
+
+        addLogOperation.process(AddLogInput.builder()
+                .logMessage("Request to get all bookmaker with id [" + bookmaker.getId() + "] was made")
+                .build());
 
         return GetBookmakerByIdOutput.builder()
                 .firstName(bookmaker.getFirstName())

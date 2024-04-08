@@ -3,6 +3,8 @@ package com.example.sportevents_betting.core.services.bookmaker;
 import com.example.sportevents_betting.api.inputoutput.bookmaker.edit.EditBookmakerInput;
 import com.example.sportevents_betting.api.inputoutput.bookmaker.edit.EditBookmakerOperation;
 import com.example.sportevents_betting.api.inputoutput.bookmaker.edit.EditBookmakerOutput;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogInput;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogOperation;
 import com.example.sportevents_betting.core.exceptions.bookmaker.BookmakerNotFoundException;
 import com.example.sportevents_betting.persistence.entities.Bookmaker;
 import com.example.sportevents_betting.persistence.repositories.BookmakerRepository;
@@ -16,6 +18,7 @@ import java.util.UUID;
 public class EditBookmakerOperationProcessor implements EditBookmakerOperation {
 
     private final BookmakerRepository bookmakerRepository;
+    private final AddLogOperation addLogOperation;
 
     @Override
     public EditBookmakerOutput process(EditBookmakerInput input) {
@@ -37,6 +40,11 @@ public class EditBookmakerOperationProcessor implements EditBookmakerOperation {
         }
 
         bookmakerRepository.save(bookmaker);
+
+        addLogOperation.process(AddLogInput.builder()
+                .logMessage("Edited bookmaker with:" +
+                        "\nid: " + bookmaker.getId())
+                .build());
 
         return EditBookmakerOutput.builder()
                 .firstName(bookmaker.getFirstName())

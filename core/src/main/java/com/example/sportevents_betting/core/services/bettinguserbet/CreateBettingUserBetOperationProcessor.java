@@ -3,6 +3,8 @@ package com.example.sportevents_betting.core.services.bettinguserbet;
 import com.example.sportevents_betting.api.inputoutput.bettinguserbet.create.CreateBettingUserBetInput;
 import com.example.sportevents_betting.api.inputoutput.bettinguserbet.create.CreateBettingUserBetOperation;
 import com.example.sportevents_betting.api.inputoutput.bettinguserbet.create.CreateBettingUserBetOutput;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogInput;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogOperation;
 import com.example.sportevents_betting.core.exceptions.bettinguser.BettingUserNotFoundException;
 import com.example.sportevents_betting.core.exceptions.bookmakeroffer.BookmakerOfferNotFoundException;
 import com.example.sportevents_betting.persistence.entities.BettingUser;
@@ -23,6 +25,7 @@ public class CreateBettingUserBetOperationProcessor implements CreateBettingUser
     private final BettingUserBetRepository bettingUserBetRepository;
     private final BookmakerOfferRepository bookmakerOfferRepository;
     private final BettingUserRepository bettingUserRepository;
+    private final AddLogOperation addLogOperation;
 
     @Override
     public CreateBettingUserBetOutput process(CreateBettingUserBetInput input) {
@@ -43,6 +46,13 @@ public class CreateBettingUserBetOperationProcessor implements CreateBettingUser
                 .build();
 
         bettingUserBetRepository.save(bet);
+
+        addLogOperation.process(AddLogInput.builder()
+                .logMessage("Betting user with email ["+bettingUser.getEmail()+"] put a bet with:"+
+                        "\nbookmaker offer id: " + bet.getBookmakerOfferId() +
+                        "\nbet amount: " + bet.getBetAmount() +
+                        "\npicked team: " + bet.getPickedTeam())
+                .build());
 
         return CreateBettingUserBetOutput.builder()
                 .id(bet.getId().toString())

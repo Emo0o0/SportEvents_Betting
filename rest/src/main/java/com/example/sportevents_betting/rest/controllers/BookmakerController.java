@@ -32,6 +32,14 @@ public class BookmakerController {
     private final GetBookmakerByIdOperation getBookmakerByIdOperation;
 
 
+//    @PostMapping(path = "/login")
+//    public ResponseEntity<LoginBookmakerOutput> login(@RequestBody LoginBookmakerInput input) {
+//        LoginBookmakerOutput result = loginBookmakerOperation.process(input);
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.add("Authorization", result.getJwt());
+//        return new ResponseEntity<>(headers, HttpStatus.OK);
+//    }
+
     @PostMapping(path = "/create")
     public ResponseEntity<CreateBookmakerOutput> createBookmaker(@Valid @RequestBody CreateBookmakerInput input) {
         return ResponseEntity.status(201).body(createBookmakerOperation.process(input));

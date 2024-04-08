@@ -6,13 +6,13 @@ import com.example.sportevents_betting.api.inputoutput.bookmaker.getall.GetAllBo
 import com.example.sportevents_betting.api.inputoutput.bookmaker.getall.GetAllBookmakersOutput;
 import com.example.sportevents_betting.api.inputoutput.bookmaker.mapoffers.MapBookmakerOffersInput;
 import com.example.sportevents_betting.api.inputoutput.bookmaker.mapoffers.MapBookmakerOffersOperation;
-import com.example.sportevents_betting.persistence.entities.Bookmaker;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogInput;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogOperation;
 import com.example.sportevents_betting.persistence.repositories.BookmakerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +22,7 @@ public class GetAllBookmakersOperationProcessor implements GetAllBookmakersOpera
 
     private final BookmakerRepository bookmakerRepository;
     private final MapBookmakerOffersOperation mapBookmakerOffersOperation;
+    private final AddLogOperation addLogOperation;
 
     @Override
     public GetAllBookmakersListOutput process(GetAllBookmakersInput input) {
@@ -43,6 +44,10 @@ public class GetAllBookmakersOperationProcessor implements GetAllBookmakersOpera
                                 .getBookmakerOffers())
                         .build())
                 .collect(Collectors.toList());
+
+        addLogOperation.process(AddLogInput.builder()
+                .logMessage("Request to get all bookmakers was made")
+                .build());
 
         return GetAllBookmakersListOutput.builder()
                 .bookmakers(outputList)

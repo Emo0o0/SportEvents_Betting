@@ -4,6 +4,8 @@ import com.example.sportevents_betting.api.inputoutput.bettinguserbet.getbyuser.
 import com.example.sportevents_betting.api.inputoutput.bettinguserbet.getbyuser.GetAllBettingUserBetsByUserListOutput;
 import com.example.sportevents_betting.api.inputoutput.bettinguserbet.getbyuser.GetAllBettingUserBetsByUserOperation;
 import com.example.sportevents_betting.api.inputoutput.bettinguserbet.getbyuser.GetAllBettingUserBetsByUserOutput;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogInput;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogOperation;
 import com.example.sportevents_betting.core.exceptions.bettinguser.BettingUserNotFoundException;
 import com.example.sportevents_betting.persistence.entities.BettingUser;
 import com.example.sportevents_betting.persistence.repositories.BettingUserRepository;
@@ -18,6 +20,7 @@ import java.util.UUID;
 public class GetAllBettingUserBetsByUserOperationProcessor implements GetAllBettingUserBetsByUserOperation {
 
     private final BettingUserRepository bettingUserRepository;
+    private final AddLogOperation addLogOperation;
 
     @Override
     public GetAllBettingUserBetsByUserListOutput process(GetAllBettingUserBetsByUserInput input) {
@@ -33,6 +36,10 @@ public class GetAllBettingUserBetsByUserOperationProcessor implements GetAllBett
                         .bettingUserId(bet.getBettingUser().getId().toString())
                         .build())
                 .toList();
+
+        addLogOperation.process(AddLogInput.builder()
+                .logMessage("Request to get all bets of user with id [" + bettingUser.getId() + "] was made")
+                .build());
 
         return GetAllBettingUserBetsByUserListOutput.builder()
                 .bets(bets)

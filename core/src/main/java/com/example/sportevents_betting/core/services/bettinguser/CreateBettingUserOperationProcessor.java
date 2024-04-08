@@ -3,6 +3,8 @@ package com.example.sportevents_betting.core.services.bettinguser;
 import com.example.sportevents_betting.api.inputoutput.bettinguser.create.CreateBettingUserInput;
 import com.example.sportevents_betting.api.inputoutput.bettinguser.create.CreateBettingUserOperation;
 import com.example.sportevents_betting.api.inputoutput.bettinguser.create.CreateBettingUserOutput;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogInput;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogOperation;
 import com.example.sportevents_betting.persistence.entities.BettingUser;
 import com.example.sportevents_betting.persistence.repositories.BettingUserRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ public class CreateBettingUserOperationProcessor implements CreateBettingUserOpe
 
     private final BettingUserRepository bettingUserRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AddLogOperation addLogOperation;
 
     @Override
     public CreateBettingUserOutput process(CreateBettingUserInput input) {
@@ -27,6 +30,15 @@ public class CreateBettingUserOperationProcessor implements CreateBettingUserOpe
                 .build();
 
         bettingUserRepository.save(bettingUser);
+
+        addLogOperation.process(AddLogInput.builder()
+                .logMessage("Created betting user with:" +
+                        "\nid: " + bettingUser.getId().toString() +
+                        "\nfirst name: " + bettingUser.getFirstName() +
+                        "\nlast name: " + bettingUser.getLastName() +
+                        "\nemail: " + bettingUser.getEmail())
+                .build());
+
 
         return CreateBettingUserOutput.builder()
                 .id(bettingUser.getId().toString())

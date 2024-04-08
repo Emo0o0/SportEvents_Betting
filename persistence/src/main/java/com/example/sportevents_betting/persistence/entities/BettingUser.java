@@ -31,7 +31,4 @@ public class BettingUser {
     @OneToMany(mappedBy = "bettingUser")
     private Set<BettingUserBet> bets;
 
-    @ManyToMany (fetch = FetchType.EAGER)
-    private Set<Role> roles;
-
 }

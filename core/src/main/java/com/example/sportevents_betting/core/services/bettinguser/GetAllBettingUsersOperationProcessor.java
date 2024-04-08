@@ -6,6 +6,8 @@ import com.example.sportevents_betting.api.inputoutput.bettinguser.getall.GetAll
 import com.example.sportevents_betting.api.inputoutput.bettinguser.getall.GetAllBettingUsersOutput;
 import com.example.sportevents_betting.api.inputoutput.bettinguser.mapbets.MapBettingUserBetsInput;
 import com.example.sportevents_betting.api.inputoutput.bettinguser.mapbets.MapBettingUserBetsOperation;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogInput;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogOperation;
 import com.example.sportevents_betting.persistence.repositories.BettingUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +23,7 @@ public class GetAllBettingUsersOperationProcessor implements GetAllBettingUsersO
 
     private final BettingUserRepository bettingUserRepository;
     private final MapBettingUserBetsOperation mapBettingUserBetsOperation;
+    private final AddLogOperation addLogOperation;
 
     @Override
     public GetAllBettingUsersListOutput process(GetAllBettingUsersInput input) {
@@ -39,6 +42,10 @@ public class GetAllBettingUsersOperationProcessor implements GetAllBettingUsersO
                                 .getMappedBets()))
                         .build())
                 .collect(Collectors.toSet());
+
+        addLogOperation.process(AddLogInput.builder()
+                .logMessage("Request to get all betting users was made")
+                .build());
 
         return GetAllBettingUsersListOutput.builder()
                 .users(outputSet)

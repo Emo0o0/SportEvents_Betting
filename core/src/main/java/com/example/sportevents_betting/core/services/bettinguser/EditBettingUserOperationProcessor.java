@@ -3,6 +3,8 @@ package com.example.sportevents_betting.core.services.bettinguser;
 import com.example.sportevents_betting.api.inputoutput.bettinguser.edit.EditBettingUserInput;
 import com.example.sportevents_betting.api.inputoutput.bettinguser.edit.EditBettingUserOperation;
 import com.example.sportevents_betting.api.inputoutput.bettinguser.edit.EditBettingUserOutput;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogInput;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogOperation;
 import com.example.sportevents_betting.core.exceptions.bettinguser.BettingUserNotFoundException;
 import com.example.sportevents_betting.persistence.entities.BettingUser;
 import com.example.sportevents_betting.persistence.repositories.BettingUserRepository;
@@ -16,6 +18,7 @@ import java.util.UUID;
 public class EditBettingUserOperationProcessor implements EditBettingUserOperation {
 
     private final BettingUserRepository bettingUserRepository;
+    private final AddLogOperation addLogOperation;
 
     @Override
     public EditBettingUserOutput process(EditBettingUserInput input) {
@@ -34,6 +37,12 @@ public class EditBettingUserOperationProcessor implements EditBettingUserOperati
         }
 
         bettingUserRepository.save(bettingUser);
+
+        addLogOperation.process(AddLogInput.builder()
+                .logMessage("Edited betting user with:" +
+                        "\nid: " + bettingUser.getId().toString())
+                .build());
+
 
         return EditBettingUserOutput.builder()
                 .firstName(bettingUser.getFirstName())

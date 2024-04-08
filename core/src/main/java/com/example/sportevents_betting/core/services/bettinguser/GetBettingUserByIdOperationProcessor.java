@@ -5,6 +5,8 @@ import com.example.sportevents_betting.api.inputoutput.bettinguser.getbyid.GetBe
 import com.example.sportevents_betting.api.inputoutput.bettinguser.getbyid.GetBettingUserByIdOutput;
 import com.example.sportevents_betting.api.inputoutput.bettinguser.mapbets.MapBettingUserBetsInput;
 import com.example.sportevents_betting.api.inputoutput.bettinguser.mapbets.MapBettingUserBetsOperation;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogInput;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogOperation;
 import com.example.sportevents_betting.core.exceptions.bettinguser.BettingUserNotFoundException;
 import com.example.sportevents_betting.persistence.entities.BettingUser;
 import com.example.sportevents_betting.persistence.repositories.BettingUserRepository;
@@ -20,6 +22,7 @@ public class GetBettingUserByIdOperationProcessor implements GetBettingUserByIdO
 
     private final BettingUserRepository bettingUserRepository;
     private final MapBettingUserBetsOperation mapBettingUserBetsOperation;
+    private final AddLogOperation addLogOperation;
 
     @Override
     public GetBettingUserByIdOutput process(GetBettingUserByIdInput input) {
@@ -27,6 +30,9 @@ public class GetBettingUserByIdOperationProcessor implements GetBettingUserByIdO
         BettingUser bettingUser = bettingUserRepository.findById(UUID.fromString(input.getId()))
                 .orElseThrow(() -> new BettingUserNotFoundException("user not found"));
 
+        addLogOperation.process(AddLogInput.builder()
+                .logMessage("Request to get betting user with id [" + bettingUser.getId() + "] was made")
+                .build());
 
         return GetBettingUserByIdOutput.builder()
                 .firstName(bettingUser.getFirstName())

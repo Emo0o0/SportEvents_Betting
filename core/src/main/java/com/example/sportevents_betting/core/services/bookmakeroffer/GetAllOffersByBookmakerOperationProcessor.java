@@ -4,6 +4,8 @@ import com.example.sportevents_betting.api.inputoutput.bookmakeroffer.getallbybo
 import com.example.sportevents_betting.api.inputoutput.bookmakeroffer.getallbybookmaker.GetAllOffersByBookmakerListOutput;
 import com.example.sportevents_betting.api.inputoutput.bookmakeroffer.getallbybookmaker.GetAllOffersByBookmakerOperation;
 import com.example.sportevents_betting.api.inputoutput.bookmakeroffer.getallbybookmaker.GetAllOffersByBookmakerOutput;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogInput;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogOperation;
 import com.example.sportevents_betting.core.exceptions.bookmaker.BookmakerNotFoundException;
 import com.example.sportevents_betting.persistence.entities.Bookmaker;
 import com.example.sportevents_betting.persistence.repositories.BookmakerRepository;
@@ -18,6 +20,7 @@ import java.util.UUID;
 public class GetAllOffersByBookmakerOperationProcessor implements GetAllOffersByBookmakerOperation {
 
     private final BookmakerRepository bookmakerRepository;
+    private final AddLogOperation addLogOperation;
 
     @Override
     public GetAllOffersByBookmakerListOutput process(GetAllOffersByBookmakerInput input) {
@@ -33,6 +36,10 @@ public class GetAllOffersByBookmakerOperationProcessor implements GetAllOffersBy
                         .bookmakerId(offer.getBookmaker().getId().toString())
                         .build())
                 .toList();
+
+        addLogOperation.process(AddLogInput.builder()
+                .logMessage("Request to get all offers of bookmaker with id [" + input.getBookmakerId() + "] was made")
+                .build());
 
         return GetAllOffersByBookmakerListOutput.builder()
                 .offers(offers)

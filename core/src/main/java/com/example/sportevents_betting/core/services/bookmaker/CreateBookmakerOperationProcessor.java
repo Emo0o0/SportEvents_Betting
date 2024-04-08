@@ -3,6 +3,8 @@ package com.example.sportevents_betting.core.services.bookmaker;
 import com.example.sportevents_betting.api.inputoutput.bookmaker.create.CreateBookmakerInput;
 import com.example.sportevents_betting.api.inputoutput.bookmaker.create.CreateBookmakerOperation;
 import com.example.sportevents_betting.api.inputoutput.bookmaker.create.CreateBookmakerOutput;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogInput;
+import com.example.sportevents_betting.api.inputoutput.log.add.AddLogOperation;
 import com.example.sportevents_betting.persistence.entities.Bookmaker;
 import com.example.sportevents_betting.persistence.repositories.BookmakerRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ public class CreateBookmakerOperationProcessor implements CreateBookmakerOperati
 
     private final BookmakerRepository bookmakerRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AddLogOperation addLogOperation;
 
     @Override
     public CreateBookmakerOutput process(CreateBookmakerInput input) {
@@ -29,6 +32,15 @@ public class CreateBookmakerOperationProcessor implements CreateBookmakerOperati
                 .build();
 
         bookmakerRepository.save(bookmaker);
+
+        addLogOperation.process(AddLogInput.builder()
+                .logMessage("Created bookmaker with:" +
+                        "\nid: " + bookmaker.getId().toString() +
+                        "\nfirst name: " + bookmaker.getFirstName() +
+                        "\nlast name: " + bookmaker.getLastName() +
+                        "\nemail: " + bookmaker.getEmail() +
+                        "\nphone: " + bookmaker.getPhone())
+                .build());
 
         return CreateBookmakerOutput.builder()
                 .firstName(bookmaker.getFirstName())
