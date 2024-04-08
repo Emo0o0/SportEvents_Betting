@@ -3,6 +3,7 @@ package com.example.sportevents_betting.rest.controllers;
 import com.example.sportevents_betting.api.inputoutput.bettinguserbet.calculatebets.CalculateBetsInput;
 import com.example.sportevents_betting.api.inputoutput.bettinguserbet.calculatebets.CalculateBetsOperation;
 import com.example.sportevents_betting.api.inputoutput.bettinguserbet.calculatebets.CalculateBetsOutput;
+import com.example.sportevents_betting.api.inputoutput.bettinguserbet.calculatebets.CalculateBetsSetOutput;
 import com.example.sportevents_betting.api.inputoutput.bettinguserbet.create.CreateBettingUserBetInput;
 import com.example.sportevents_betting.api.inputoutput.bettinguserbet.create.CreateBettingUserBetOperation;
 import com.example.sportevents_betting.api.inputoutput.bettinguserbet.create.CreateBettingUserBetOutput;
@@ -63,7 +64,7 @@ public class BettingUserBetController {
     }
 
     @PostMapping("/calculate")
-    public ResponseEntity<CalculateBetsOutput> calculateBets(@RequestBody CalculateBetsInput input) {
+    public ResponseEntity<CalculateBetsSetOutput> calculateBets(@RequestBody CalculateBetsInput input) {
         return ResponseEntity.status(200).body(calculateBetsOperation.process(input));
     }
 }
