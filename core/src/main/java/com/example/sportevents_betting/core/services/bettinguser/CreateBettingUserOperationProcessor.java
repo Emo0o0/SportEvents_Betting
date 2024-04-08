@@ -7,6 +7,8 @@ import com.example.sportevents_betting.api.inputoutput.log.add.AddLogInput;
 import com.example.sportevents_betting.api.inputoutput.log.add.AddLogOperation;
 import com.example.sportevents_betting.persistence.entities.BettingUser;
 import com.example.sportevents_betting.persistence.repositories.BettingUserRepository;
+import com.example.sportevents_payment.api.inputoutput.bettingusercard.create.CreateBettingUserCardInput;
+import com.example.sportevents_payment.restexport.SportEventsPaymentRestClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ public class CreateBettingUserOperationProcessor implements CreateBettingUserOpe
     private final BettingUserRepository bettingUserRepository;
     private final PasswordEncoder passwordEncoder;
     private final AddLogOperation addLogOperation;
+    private final SportEventsPaymentRestClient sportEventsPaymentRestClient;
 
     @Override
     public CreateBettingUserOutput process(CreateBettingUserInput input) {
@@ -39,6 +42,10 @@ public class CreateBettingUserOperationProcessor implements CreateBettingUserOpe
                         "\nemail: " + bettingUser.getEmail())
                 .build());
 
+
+        sportEventsPaymentRestClient.createCard(CreateBettingUserCardInput.builder()
+                .userId(bettingUser.getId().toString())
+                .build());
 
         return CreateBettingUserOutput.builder()
                 .id(bettingUser.getId().toString())

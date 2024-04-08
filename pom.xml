@@ -33,6 +33,7 @@
         <revision>0.0.1-SNAPSHOT</revision>
         <SportEvents_revision>0.0.1-SNAPSHOT</SportEvents_revision>
         <SportEventsLogger_revision>0.0.1-SNAPSHOT</SportEventsLogger_revision>
+        <SportEventsPayment_revision>0.0.1-SNAPSHOT</SportEventsPayment_revision>
     </properties>
 
     <dependencies>

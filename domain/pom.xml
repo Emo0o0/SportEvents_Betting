@@ -25,6 +25,12 @@
             <version>${SportEventsLogger_revision}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.example.sportevents_payment</groupId>
+            <artifactId>restexport</artifactId>
+            <version>${SportEventsPayment_revision}</version>
+        </dependency>
+
     </dependencies>
 
     <properties>

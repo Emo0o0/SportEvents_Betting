@@ -1,5 +1,8 @@
 package com.example.sportevents_betting.rest.controllers;
 
+import com.example.sportevents_betting.api.inputoutput.bettinguserbet.calculatebets.CalculateBetsInput;
+import com.example.sportevents_betting.api.inputoutput.bettinguserbet.calculatebets.CalculateBetsOperation;
+import com.example.sportevents_betting.api.inputoutput.bettinguserbet.calculatebets.CalculateBetsOutput;
 import com.example.sportevents_betting.api.inputoutput.bettinguserbet.create.CreateBettingUserBetInput;
 import com.example.sportevents_betting.api.inputoutput.bettinguserbet.create.CreateBettingUserBetOperation;
 import com.example.sportevents_betting.api.inputoutput.bettinguserbet.create.CreateBettingUserBetOutput;
@@ -25,6 +28,7 @@ public class BettingUserBetController {
     private final GetAllBettingUserBetsOperation getAllBettingUserBetsOperation;
     private final GetBettingUserBetByIdOperation getBettingUserBetByIdOperation;
     private final GetAllBettingUserBetsByUserOperation getAllBettingUserBetsByUserOperation;
+    private final CalculateBetsOperation calculateBetsOperation;
 
     @PostMapping("/placeBet")
     public ResponseEntity<CreateBettingUserBetOutput> createBet(@RequestBody CreateBettingUserBetInput input) {
@@ -56,5 +60,10 @@ public class BettingUserBetController {
                 .bettingUserId(userId)
                 .build();
         return ResponseEntity.status(200).body(getAllBettingUserBetsByUserOperation.process(input));
+    }
+
+    @PostMapping("/calculate")
+    public ResponseEntity<CalculateBetsOutput> calculateBets(@RequestBody CalculateBetsInput input) {
+        return ResponseEntity.status(200).body(calculateBetsOperation.process(input));
     }
 }

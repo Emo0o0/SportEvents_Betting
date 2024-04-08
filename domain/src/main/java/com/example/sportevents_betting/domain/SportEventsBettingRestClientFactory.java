@@ -2,6 +2,7 @@ package com.example.sportevents_betting.domain;
 
 import com.example.sportevents.restexport.SportEventsRestClient;
 import com.example.sportevents_logger.restexport.SportEventsLoggerRestClient;
+import com.example.sportevents_payment.restexport.SportEventsPaymentRestClient;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
@@ -30,6 +31,15 @@ public class SportEventsBettingRestClientFactory {
                 .encoder(new JacksonEncoder(objectMapper))
                 .decoder(new JacksonDecoder(objectMapper))
                 .target(SportEventsLoggerRestClient.class, "http://localhost:8082");
+    }
+
+    @Bean
+    SportEventsPaymentRestClient getPaymentRestExportClient(){
+        final ObjectMapper objectMapper = new ObjectMapper();
+        return Feign.builder()
+                .encoder(new JacksonEncoder(objectMapper))
+                .decoder(new JacksonDecoder(objectMapper))
+                .target(SportEventsPaymentRestClient.class, "http://localhost:8083");
     }
 
 

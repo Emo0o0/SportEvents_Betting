@@ -10,4 +10,5 @@ public interface BettingUserBetRepository extends JpaRepository<BettingUserBet, 
 
     Set<BettingUserBet> findAllByBookmakerOfferId(String id);
 
+
 }
